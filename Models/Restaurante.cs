@@ -14,6 +14,18 @@ namespace DriveXpress.Models
         public string Email { get; set; }
         [Required]
         public string Endereco { get; set; }
+        [Required]
+        public Categoria Categoria { get; set; }
+    }
+
+    public enum Categoria
+    {
+        Japonesa,
+        Gourmet,
+        Doces
     }
 
 }
+
+//categoria
+//telefone

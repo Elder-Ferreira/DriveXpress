@@ -15,7 +15,7 @@ namespace DriveXpress.Models
         [Required]
         public string Valor { get; set; }
         [Required]
-        public TipoProduto Tipo { get; set; }
+        public TipoProduto Tipo { get; set; }  
 
         [Required]
         public int RestauranteId { get; set; } //restaurante pode ter varios produtos (associado a Key de restaurante)
@@ -29,3 +29,7 @@ namespace DriveXpress.Models
         Comida
     }
 }
+
+
+//quantidade
+//observação
