@@ -13,9 +13,13 @@ namespace DriveXpress.Models
         [Required]
         public string Email { get; set; }
         [Required]
+        public string Telefone { get; set; }
+        [Required]
         public string Endereco { get; set; }
         [Required]
         public Categoria Categoria { get; set; }
+
+        public ICollection<Produto> Produtos { get; set; } //restaurante possui uma coleção de produtos
     }
 
     public enum Categoria
@@ -26,6 +30,3 @@ namespace DriveXpress.Models
     }
 
 }
-
-//categoria
-//telefone

@@ -11,9 +11,11 @@ namespace DriveXpress.Models
         [Required]
         public string Nome { get; set; }
         [Required]
+        public int Quantidade { get; set; }
+        [Required]
         public string Descricao { get; set; }
         [Required]
-        public string Valor { get; set; }
+        public double Valor { get; set; }
         [Required]
         public TipoProduto Tipo { get; set; }  
 
@@ -31,5 +33,4 @@ namespace DriveXpress.Models
 }
 
 
-//quantidade
-//observação
+//Inserir campo observação
