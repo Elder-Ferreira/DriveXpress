@@ -22,5 +22,25 @@ namespace DriveXpress.Controllers
             var model = await _context.Restaurantes.ToListAsync();
             return Ok(model);
         }
+
+        [HttpPost]
+        public async Task<ActionResult> Create(Restaurante model)
+        {
+            _context.Restaurantes.Add(model);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("GetById", new {id = model.Id}, model);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult> GetById(int id)
+        {
+           var model = await _context.Restaurantes
+                .FirstOrDefaultAsync(c => c.Id == id); 
+
+            if (model == null) NotFound();
+
+            return Ok(model);
+        }
     }
 }

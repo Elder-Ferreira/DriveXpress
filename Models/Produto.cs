@@ -15,7 +15,7 @@ namespace DriveXpress.Models
         [Required]
         public string Descricao { get; set; }
         [Required]
-        public double Valor { get; set; }
+        public double Valor { get; set; } 
         [Required]
         public TipoProduto Tipo { get; set; }  
 
