@@ -37,6 +37,7 @@ namespace DriveXpress.Controllers
         public async Task<ActionResult> GetById(int id)
         {
            var model = await _context.Restaurantes
+                .Include(t => t.Produtos)
                 .FirstOrDefaultAsync(c => c.Id == id); 
 
             if (model == null) return NotFound();

@@ -20,8 +20,8 @@ namespace DriveXpress.Models
         public TipoProduto Tipo { get; set; }  
 
         [Required]
-        public int RestauranteId { get; set; } //restaurante pode ter varios produtos (associado a Key de restaurante)
-        [Required]
+        public int RestauranteId { get; set; } //produto pertence a um unico restaurante (produto associado a Key de restaurante)
+        
         public Restaurante Restaurante { get; set; } //retorna dados restaurante
         
     }
