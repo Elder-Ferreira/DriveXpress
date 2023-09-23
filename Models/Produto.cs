@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace DriveXpress.Models
 {
     [Table("Produtos")]
-    public class Produto
+    public class Produto : LinksHATEOS
     {
         [Key]
         public int Id { get; set; }
