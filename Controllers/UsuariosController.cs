@@ -24,12 +24,20 @@ namespace DriveXpress.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Create(Usuario model)
+        public async Task<ActionResult> Create(UsuarioDto model)
         {
-            _context.Usuarios.Add(model);
+            Usuario novo = new Usuario()
+            {
+                Nome = model.Nome,
+                Email = model.Email,
+                Senha = BCrypt.Net.BCrypt.HashPassword(model.Senha),
+                Perfil = model.Perfil
+            };
+                    
+            _context.Usuarios.Add(novo);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetById", new { id = model.Id }, model);
+            return CreatedAtAction("GetById", new { id = novo.Id }, novo);
         }
 
         [HttpGet("{id}")]
@@ -45,7 +53,7 @@ namespace DriveXpress.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult> Update(int id, Usuario model)
+        public async Task<ActionResult> Update(int id, UsuarioDto model)
         {
             if (id != model.Id) return BadRequest();
             var modeloDb = await _context.Usuarios.AsNoTracking()
@@ -53,7 +61,12 @@ namespace DriveXpress.Controllers
 
             if (modeloDb == null) return NotFound();
 
-            _context.Usuarios.Update(model);
+            modeloDb.Nome = model.Nome;
+            modeloDb.Email = model.Email;
+            modeloDb.Senha = BCrypt.Net.BCrypt.HashPassword(model.Senha);
+            modeloDb.Perfil = model.Perfil;
+
+            _context.Usuarios.Update(modeloDb);
             await _context.SaveChangesAsync();
 
             return NoContent();
