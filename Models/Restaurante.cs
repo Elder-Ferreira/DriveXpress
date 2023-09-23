@@ -20,9 +20,10 @@ namespace DriveXpress.Models
         public Categoria Categoria { get; set; }
 
         public ICollection<Produto> Produtos { get; set; } //restaurante possui uma coleção de produtos
-    }
 
-    public enum Categoria
+        public ICollection<RestauranteUsuarios> Usuarios { get; set; } //restaurante possui uma coleção de usuarios
+    }
+        public enum Categoria
     {
         Japonesa,
         Gourmet,

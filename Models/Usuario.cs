@@ -9,7 +9,7 @@ namespace DriveXpress.Models
         [Key]
         public int Id { get; set; }
         [Required]
-        public string Name { get; set; }
+        public string Nome { get; set; }
         [Required]
         public string Email { get; set; }
         [Required]
@@ -17,13 +17,17 @@ namespace DriveXpress.Models
         [Required]
         public PerfilUsuario Perfil { get; set; }
 
-        public ICollection<Produto> Produtos { get; set; } //usuario possui uma coleção de produtos
+        public ICollection<RestauranteUsuarios> Restaurantes { get; set; } //usuario possui uma coleção de restaurantes. usuario possui varios restaurantes
     }
 
-    public enum PerfilUsuario
-    {
-        Cliente,
-        Funcionario,
-        Gerente
-    }
+        public enum PerfilUsuario
+        {
+            [Display(Name = "Cliente")]
+            Cliente,
+            [Display(Name = "Funcionario")]
+            Funcionario,
+            [Display(Name = "Gerente")]
+            Gerente
+        }
+    
 }
