@@ -37,6 +37,7 @@ namespace DriveXpress.Controllers
         public async Task<ActionResult> GetById(int id)
         {
            var model = await _context.Restaurantes
+                .Include(t => t.Usuarios).ThenInclude(t=>t.Usuario)
                 .Include(t => t.Produtos)
                 .FirstOrDefaultAsync(c => c.Id == id); 
 
@@ -81,6 +82,31 @@ namespace DriveXpress.Controllers
             model.Links.Add(new LinkDto(model.Id, Url.ActionLink(), rel: "update", metodo: "PUT"));
             model.Links.Add(new LinkDto(model.Id, Url.ActionLink(), rel: "delete", metodo: "DELETE"));
 
+        }
+
+        [HttpPost("{id}/usuarios")]
+        public async Task<ActionResult> AddUsuario(int id, RestauranteUsuarios model)
+        {
+            if (id != model.RestauranteId) return BadRequest();
+            _context.RestauranteUsuarios.Add(model);
+            await _context.SaveChangesAsync();  
+
+            return CreatedAtAction("GetById", new { id = model.RestauranteId}, model);
+        }
+
+        [HttpDelete("{id}/usuarios/{usuarioId}")]
+        public async Task<ActionResult> DeleteUsuario(int id, int usuarioId)
+        {
+            var model = await _context.RestauranteUsuarios
+                 .Where(c => c.RestauranteId == id && c.UsuarioId == usuarioId)
+                 .FirstOrDefaultAsync();
+
+            if (model == null) return NotFound();
+
+            _context.RestauranteUsuarios.Remove(model);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
         }
 
     }
