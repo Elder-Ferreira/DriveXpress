@@ -10,7 +10,6 @@ using System.Text;
 
 namespace DriveXpress.Controllers
 {
-    [Authorize(Roles = "Cliente")]
     [Route("api/[controller]")]
     [ApiController]
     public class UsuariosController : ControllerBase
@@ -22,6 +21,7 @@ namespace DriveXpress.Controllers
             _context = context;
         }
 
+        [Authorize(Roles = "Gerente")]
         [HttpGet]
         public async Task<ActionResult> GetAll()
         {
@@ -47,6 +47,7 @@ namespace DriveXpress.Controllers
             return CreatedAtAction("GetById", new { id = novo.Id }, novo);
         }
 
+        [Authorize(Roles = "Cliente")]
         [HttpGet("{id}")]
         public async Task<ActionResult> GetById(int id)
         {
@@ -59,6 +60,7 @@ namespace DriveXpress.Controllers
             return Ok(model);
         }
 
+        [Authorize(Roles = "Cliente")]
         [HttpPut("{id}")]
         public async Task<ActionResult> Update(int id, UsuarioDto model)
         {
@@ -80,6 +82,7 @@ namespace DriveXpress.Controllers
 
         }
 
+        [Authorize(Roles = "Cliente")]
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {
