@@ -10,7 +10,7 @@ using System.Text;
 
 namespace DriveXpress.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Cliente")]
     [Route("api/[controller]")]
     [ApiController]
     public class UsuariosController : ControllerBase
@@ -29,6 +29,7 @@ namespace DriveXpress.Controllers
             return Ok(model);
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public async Task<ActionResult> Create(UsuarioDto model)
         {
@@ -128,7 +129,7 @@ namespace DriveXpress.Controllers
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = claims,
-                Expires = DateTime.UtcNow.AddHours(8),
+                Expires = DateTime.UtcNow.AddHours(9999),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key),
                 SecurityAlgorithms.HmacSha256Signature)
             };

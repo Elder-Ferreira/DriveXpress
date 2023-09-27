@@ -3,11 +3,12 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 using System.Runtime.InteropServices;
 
 namespace DriveXpress.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Gerente")]
     [Route("api/[controller]")]
     [ApiController]
     public class RestaurantesController : ControllerBase
@@ -19,6 +20,7 @@ namespace DriveXpress.Controllers
             _context = context;
         }
 
+        [Authorize(Roles = "Gerente,Funcionario,Cliente")]
         [HttpGet]
         public async Task<ActionResult> GetAll()
         {
