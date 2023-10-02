@@ -22,11 +22,13 @@ Consultando restaurantes cadastrados no sistema
 
 ![Produtos](https://github.com/Elder-Ferreira/DriveXpress/assets/103782980/5c11c8e1-fa25-46b9-ada9-a84d0a3791e4)
 
-Consultando produtos cadastrados no sistema
+Consultando produtos cadastrados no sistema. 
 
 <br>
 
 ![Usuario](https://github.com/Elder-Ferreira/DriveXpress/assets/103782980/a5414b1c-6894-428b-a89d-ee23996685bc)
 
-Consultando clientes cadastrados no sistema. Links de referência gerados para ações GET, PUT e DELETE
+Consultando dasos do cliente cadastrado no sistema. (Cliente autenticado) 
+<br>
+Retornando links de referência gerados para ações GET, PUT e DELETE.
 
