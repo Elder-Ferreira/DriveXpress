@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DriveXpress.Models
 {
-    [Table("Pedido")]
+    [Table("Pedidos")]
     public class Pedido : LinksHATEOS
     {
         [Key]
@@ -16,10 +16,7 @@ namespace DriveXpress.Models
         public int Quantidade { get; set; }        
         [Required]
         public double Valor { get; set; }
-        
-        [Required]
-        public int RestauranteId { get; set; } //pedido pertence a um unico restaurante (pedido associado a Key de restaurante)
 
-        public Produto Produto { get; set; } //retorna produtos cadastrados
+        public ICollection<Produto> Produtos { get; set; } //pedido possui uma coleção de produtos
     }
 }

@@ -36,6 +36,9 @@ namespace DriveXpress.Migrations
                     b.Property<string>("Metodo")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("PedidoId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("ProdutoId")
                         .HasColumnType("int");
 
@@ -45,13 +48,47 @@ namespace DriveXpress.Migrations
                     b.Property<int?>("RestauranteId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("UsuarioId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("PedidoId");
 
                     b.HasIndex("ProdutoId");
 
                     b.HasIndex("RestauranteId");
 
+                    b.HasIndex("UsuarioId");
+
                     b.ToTable("LinkDto");
+                });
+
+            modelBuilder.Entity("DriveXpress.Models.Pedido", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Descricao")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NomeUsuario")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Quantidade")
+                        .HasColumnType("int");
+
+                    b.Property<double>("Valor")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Pedidos");
                 });
 
             modelBuilder.Entity("DriveXpress.Models.Produto", b =>
@@ -70,6 +107,12 @@ namespace DriveXpress.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("PedidoId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ProdutosId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Quantidade")
                         .HasColumnType("int");
 
@@ -83,6 +126,10 @@ namespace DriveXpress.Migrations
                         .HasColumnType("float");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("PedidoId");
+
+                    b.HasIndex("ProdutosId");
 
                     b.HasIndex("RestauranteId");
 
@@ -166,6 +213,10 @@ namespace DriveXpress.Migrations
 
             modelBuilder.Entity("DriveXpress.Models.LinkDto", b =>
                 {
+                    b.HasOne("DriveXpress.Models.Pedido", null)
+                        .WithMany("Links")
+                        .HasForeignKey("PedidoId");
+
                     b.HasOne("DriveXpress.Models.Produto", null)
                         .WithMany("Links")
                         .HasForeignKey("ProdutoId");
@@ -173,17 +224,29 @@ namespace DriveXpress.Migrations
                     b.HasOne("DriveXpress.Models.Restaurante", null)
                         .WithMany("Links")
                         .HasForeignKey("RestauranteId");
+
+                    b.HasOne("DriveXpress.Models.Usuario", null)
+                        .WithMany("Links")
+                        .HasForeignKey("UsuarioId");
                 });
 
             modelBuilder.Entity("DriveXpress.Models.Produto", b =>
                 {
-                    b.HasOne("DriveXpress.Models.Restaurante", "Restaurante")
+                    b.HasOne("DriveXpress.Models.Pedido", null)
+                        .WithMany("Produtos")
+                        .HasForeignKey("PedidoId");
+
+                    b.HasOne("DriveXpress.Models.Produto", "Produtos")
+                        .WithMany()
+                        .HasForeignKey("ProdutosId");
+
+                    b.HasOne("DriveXpress.Models.Restaurante", null)
                         .WithMany("Produtos")
                         .HasForeignKey("RestauranteId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Restaurante");
+                    b.Navigation("Produtos");
                 });
 
             modelBuilder.Entity("DriveXpress.Models.RestauranteUsuarios", b =>
@@ -205,6 +268,13 @@ namespace DriveXpress.Migrations
                     b.Navigation("Usuario");
                 });
 
+            modelBuilder.Entity("DriveXpress.Models.Pedido", b =>
+                {
+                    b.Navigation("Links");
+
+                    b.Navigation("Produtos");
+                });
+
             modelBuilder.Entity("DriveXpress.Models.Produto", b =>
                 {
                     b.Navigation("Links");
@@ -221,6 +291,8 @@ namespace DriveXpress.Migrations
 
             modelBuilder.Entity("DriveXpress.Models.Usuario", b =>
                 {
+                    b.Navigation("Links");
+
                     b.Navigation("Restaurantes");
                 });
 #pragma warning restore 612, 618
