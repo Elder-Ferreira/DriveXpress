@@ -26,7 +26,7 @@ namespace DriveXpress.Controllers
             return Ok(model);
         }
 
-        [Authorize(Roles = "Cliente")]
+       
         [HttpPost]
         public async Task<ActionResult> Create(Pedido model)
         {
