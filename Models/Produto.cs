@@ -28,7 +28,8 @@ namespace DriveXpress.Models
     public enum TipoProduto
     {
         Bebida,
-        Comida
+        Comida,
+        Sobremesa
     }
 }
 
