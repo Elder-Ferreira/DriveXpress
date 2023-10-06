@@ -22,13 +22,14 @@ namespace DriveXpress.Models
         [Required]
         public int RestauranteId { get; set; } //produto pertence a um unico restaurante (produto associado a Key de restaurante)
         
-        public Restaurante Restaurante { get; set; } //retorna dados restaurante
+        public Produto Produtos { get; set; } //retorna produtos do restaurante
         
     }
     public enum TipoProduto
     {
         Bebida,
-        Comida
+        Comida,
+        Sobremesa
     }
 }
 
